@@ -33,7 +33,7 @@ const SignInForm = () => {
         console.log(data)
     }
     return (
-        <div>
+        <div className="w-[30vw] shadow-xl p-10 rounded-md ">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField

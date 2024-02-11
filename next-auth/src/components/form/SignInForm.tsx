@@ -14,10 +14,14 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import Link from "next/link"
 
 const formSchema = z.object({
     username: z.string().min(2, {
         message: "Username must be at least 2 characters.",
+    }),
+    password: z.string().min(8, {
+        message: "Password must be at least 8 characters.",
     }),
 })
 
@@ -26,6 +30,7 @@ const SignInForm = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             username: "",
+            password: ""
         },
     })
 
@@ -33,7 +38,7 @@ const SignInForm = () => {
         console.log(data)
     }
     return (
-        <div className="w-[30vw] shadow-xl p-10 rounded-md ">
+        <div className=" shadow-xl p-10 rounded-md ">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
@@ -52,7 +57,27 @@ const SignInForm = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Submit</Button>
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input type="password" placeholder="********" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                    This is your private password.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button className="w-full" type="submit">Sign In</Button>
+                    <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:h-px after:flex-grow after:bg-stone-400">or</div>
+
+                    <p className="text-sm">If you don&apos;t have an account, please&nbsp; <Link href='/sign-up' className="text-blue-400">Sign Up</Link></p>
+
                 </form>
             </Form>
 
